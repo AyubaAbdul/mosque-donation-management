@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Masjid Charity Hub</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Authentication Screens -->
+    <div id="authContainer" class="auth-container show">
+      <!-- Role Selection Screen -->
+      <div id="roleScreen" class="auth-screen active">
+        <div class="auth-wrapper">
+          <div class="auth-logo">☪</div>
+          <h1>Masjid Charity Hub</h1>
+          <p>Select your role to get started</p>
+
+          <div class="role-grid">
+            <button class="role-card donor-role" id="donorRoleBtn">
+              <div class="role-icon">💝</div>
+              <h3>I'm a Donor</h3>
+              <p>Make contributions to charity causes</p>
+            </button>
+            <button class="role-card admin-role" id="adminRoleBtn">
+              <div class="role-icon">⚙️</div>
+              <h3>I'm an Admin</h3>
+              <p>Manage campaigns and donations</p>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Donor Login/Register Screen -->
+      <div id="donorAuthScreen" class="auth-screen">
+        <div class="auth-wrapper">
+          <button class="back-btn" id="backFromDonor">← Back</button>
+          <div class="auth-logo">💝</div>
+          <h2>Donor Portal</h2>
+
+          <div class="auth-tabs">
+            <button class="tab-btn active" data-tab="donor-login">Login</button>
+            <button class="tab-btn" data-tab="donor-register">Register</button>
+          </div>
+
+          <!-- Donor Login Tab -->
+          <div id="donor-login" class="tab-content active">
+            <form id="donorLoginForm">
+              <div class="form-group">
+                <label for="donorLoginEmail">Email Address</label>
+                <input
+                  type="email"
+                  id="donorLoginEmail"
+                  placeholder="your@email.com"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="donorLoginPassword">Password</label>
+                <input
+                  type="password"
+                  id="donorLoginPassword"
+                  placeholder="••••••••"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn btn-primary full-width">
+                Login
+              </button>
+            </form>
+            <p class="auth-hint">
+              Don't have an account? Click <strong>Register</strong> above
+            </p>
+          </div>
+
+          <!-- Donor Register Tab -->
+          <div id="donor-register" class="tab-content">
+            <form id="donorRegisterForm">
+              <div class="form-group">
+                <label for="donorRegisterName">Full Name</label>
+                <input
+                  type="text"
+                  id="donorRegisterName"
+                  placeholder="Your full name"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="donorRegisterEmail">Email Address</label>
+                <input
+                  type="email"
+                  id="donorRegisterEmail"
+                  placeholder="your@email.com"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="donorRegisterPhone">Phone Number</label>
+                <input
+                  type="tel"
+                  id="donorRegisterPhone"
+                  placeholder="+1 234 567 8900"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="donorRegisterPassword">Password</label>
+                <input
+                  type="password"
+                  id="donorRegisterPassword"
+                  placeholder="••••••••"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="donorRegisterConfirmPassword">Confirm Password</label>
+                <input
+                  type="password"
+                  id="donorRegisterConfirmPassword"
+                  placeholder="••••••••"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn btn-primary full-width">
+                Create Account
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Admin Login Screen -->
+      <div id="adminAuthScreen" class="auth-screen">
+        <div class="auth-wrapper">
+          <button class="back-btn" id="backFromAdmin">← Back</button>
+          <div class="auth-logo">⚙️</div>
+          <h2>Admin Portal</h2>
+          <p>Secure Access Required</p>
+
+          <form id="adminLoginForm">
+            <div class="form-group">
+              <label for="adminEmail">Admin Email</label>
+              <input
+                type="email"
+                id="adminEmail"
+                placeholder="admin@masjid.com"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="adminPassword">Password</label>
+              <input
+                type="password"
+                id="adminPassword"
+                placeholder="••••••••"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="adminCode">Admin Code</label>
+              <input
+                type="text"
+                id="adminCode"
+                placeholder="6-digit code"
+                maxlength="6"
+                required
+              />
+            </div>
+            <button type="submit" class="btn btn-primary full-width">
+              Login as Admin
+            </button>
+          </form>
+
+          <div class="admin-hint">
+            <p><strong>Demo Credentials:</strong></p>
+            <p>Email: admin@masjid.com</p>
+            <p>Password: admin123</p>
+            <p>Admin Code: 123456</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Application (Hidden until login) -->
+    <div id="appContainer" class="app-container hidden">
+      <header>
+        <div class="container topbar">
+          <div class="brand">
+            <div class="brand-mark">☪</div>
+            <span>Masjid Charity Hub</span>
+          </div>
+
+          <nav class="nav">
+            <a href="#causes">Causes</a>
+            <a href="#dashboard">Dashboard</a>
+            <a href="#reports">Reports</a>
+            <a href="#about">About</a>
+          </nav>
+
+          <div class="nav-actions">
+            <span id="userGreeting" class="user-greeting"></span>
+            <button class="btn btn-secondary" id="logoutBtn">Logout</button>
+          </div>
+        </div>
+      </header>
+
+      <section class="hero">
+        <div class="container hero-inner">
+          <span class="eyebrow">Transparent Giving</span>
+          <h1>Support trusted mosque projects and community charity.</h1>
+          <p>
+            Help fund education, food relief, mosque development, and emergency aid.
+            Each donation is tracked, reportable, and visible through a secure,
+            transparent portal.
+          </p>
+
+          <div class="hero-actions">
+            <button class="btn btn-primary" id="heroDonateBtn">Make a Donation</button>
+            <button class="btn btn-secondary" id="viewCausesBtn">View Causes</button>
+          </div>
+
+          <div class="stats-row" aria-label="Project overview statistics">
+            <div class="stat-card">
+              <div class="value" id="totalRaisedStat">$0</div>
+              <div class="label">Total Raised</div>
+            </div>
+            <div class="stat-card">
+              <div class="value" id="activeCampaignsStat">0</div>
+              <div class="label">Active Campaigns</div>
+            </div>
+            <div class="stat-card">
+              <div class="value" id="donorsStat">0</div>
+              <div class="label">Donors</div>
+            </div>
+            <div class="stat-card">
+              <div class="value" id="impactStat">0</div>
+              <div class="label">Families Helped</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <main>
+        <section class="section" id="causes">
+          <div class="container">
+            <div class="section-header">
+              <div>
+                <h2>Featured Charity Causes</h2>
+                <p>Choose a cause that aligns with your generosity.</p>
+              </div>
+              <button class="btn btn-primary" id="createCauseBtn" style="display: none;">
+                Add New Cause
+              </button>
+            </div>
+            <div class="cause-grid" id="causeGrid"></div>
+          </div>
+        </section>
+
+        <section class="section" id="dashboard">
+          <div class="container dashboard">
+            <div class="panel">
+              <div class="section-header">
+                <div>
+                  <h2>Dashboard</h2>
+                  <p id="dashboardSubtitle"></p>
+                </div>
+              </div>
+
+              <div class="summary-grid">
+                <div class="summary-item">
+                  <div class="label">Total Collected</div>
+                  <div class="value" id="adminTotalCollected">$0</div>
+                </div>
+                <div class="summary-item">
+                  <div class="label">Active Campaigns</div>
+                  <div class="value" id="adminCampaignCount">0</div>
+                </div>
+                <div class="summary-item">
+                  <div class="label">Donor Count</div>
+                  <div class="value" id="adminDonorCount">0</div>
+                </div>
+              </div>
+
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Cause</th>
+                      <th>Donor</th>
+                      <th>Amount</th>
+                      <th>Date</th>
+                    </tr>
+                  </thead>
+                  <tbody id="donationTableBody"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="panel" id="adminPanel" style="display: none;">
+              <div class="section-header">
+                <div>
+                  <h2>Manage Campaigns</h2>
+                  <p>Add new projects and track implementation.</p>
+                </div>
+              </div>
+
+              <div class="admin-actions">
+                <div class="form-group">
+                  <label for="causeName">Campaign Name</label>
+                  <input id="causeName" type="text" placeholder="e.g., Winter Food Relief" />
+                </div>
+                <div class="form-group">
+                  <label for="causeCategory">Category</label>
+                  <select id="causeCategory">
+                    <option value="Education">Education</option>
+                    <option value="Food Relief">Food Relief</option>
+                    <option value="Mosque Support">Mosque Support</option>
+                    <option value="Emergency Aid">Emergency Aid</option>
+                    <option value="Medical Support">Medical Support</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="causeGoal">Funding Goal</label>
+                  <input id="causeGoal" type="number" placeholder="1500" />
+                </div>
+                <div class="form-group">
+                  <label for="causeDesc">Description</label>
+                  <textarea id="causeDesc" placeholder="Describe the campaign and impact..."></textarea>
+                </div>
+                <button class="btn btn-success" id="saveCauseBtn">Save Cause</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="reports">
+          <div class="container">
+            <div class="section-header">
+              <div>
+                <h2>Donation Reports</h2>
+                <p>Generate a summary for transparency and accountability.</p>
+              </div>
+            </div>
+            <div class="report-list" id="reportList"></div>
+          </div>
+        </section>
+
+        <section class="section" id="about">
+          <div class="container">
+            <div class="panel">
+              <div class="section-header">
+                <div>
+                  <h2>Why this system matters</h2>
+                  <p>Built for secure charity operations and responsible fund oversight.</p>
+                </div>
+              </div>
+              <div class="badges">
+                <span class="badge">Role-based Access</span>
+                <span class="badge">Online Receipts</span>
+                <span class="badge">Fund Tracking</span>
+                <span class="badge">Campaign Reporting</span>
+                <span class="badge">Secure Simulation</span>
+              </div>
+              <p class="muted about-copy">
+                This platform enables mosques to manage donations transparently,
+                donors to contribute to trusted causes, and admins to monitor cash
+                flow through detailed analytics and reporting tools. The system
+                demonstrates simulated secure transactions using browser-based
+                controls, local storage, and a role-aware dashboard.
+              </p>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- Donation Modal -->
+    <div class="donation-panel" id="donationPanel" aria-modal="true" role="dialog">
+      <div class="modal">
+        <div class="modal-header">
+          <h3>Donate to Cause</h3>
+          <button class="btn btn-secondary close-btn" id="closeDonationModal">✕</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="donationAmount">Donation Amount</label>
+            <input id="donationAmount" type="number" min="1" placeholder="e.g. 250" />
+          </div>
+          <div class="form-group form-spaced">
+            <label for="donationType">Contribution Type</label>
+            <select id="donationType">
+              <option value="One-Time">One-Time</option>
+              <option value="Monthly">Monthly</option>
+              <option value="Emergency">Emergency</option>
+            </select>
+          </div>
+          <div class="form-group form-spaced">
+            <label for="donationNote">Message / Note</label>
+            <textarea id="donationNote" placeholder="Optional note for the mosque team"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" id="cancelDonation">Cancel</button>
+          <button class="btn btn-primary" id="submitDonation">Confirm Donation</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
